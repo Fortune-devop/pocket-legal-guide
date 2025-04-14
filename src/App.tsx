@@ -10,24 +10,28 @@ import TopicsPage from "./pages/TopicsPage";
 import DocumentsPage from "./pages/DocumentsPage";
 import NotFound from "./pages/NotFound";
 
+// Create a client
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
+// The main App component
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/topics" element={<TopicsPage />} />
-          <Route path="/documents" element={<DocumentsPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <TooltipProvider>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/topics" element={<TopicsPage />} />
+            <Route path="/documents" element={<DocumentsPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Toaster />
+          <Sonner />
+        </TooltipProvider>
       </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </QueryClientProvider>
+  );
+};
 
 export default App;

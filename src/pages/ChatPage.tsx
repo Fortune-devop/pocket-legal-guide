@@ -19,7 +19,7 @@ interface Message {
 const INITIAL_MESSAGES: Message[] = [
   {
     id: '1',
-    text: 'Hello! I'm your Pocket Legal Assistant. I can help answer general legal questions. What would you like to know about?',
+    text: "Hello! I'm your Pocket Legal Assistant. I can help answer general legal questions. What would you like to know about?",
     isUser: false,
     timestamp: new Date()
   }
@@ -138,3 +138,4 @@ const ChatPage: React.FC = () => {
 };
 
 export default ChatPage;
+

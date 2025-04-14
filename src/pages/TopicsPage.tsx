@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Briefcase, Home, Users, ShoppingBag, Car, Scale, FileText } from 'lucide-react';
+import { Briefcase, Home, Users, ShoppingBag, Car, Scale, FileText, Globe, GraduationCap } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LegalHeader from '@/components/LegalHeader';
@@ -15,7 +14,7 @@ const TopicsPage: React.FC = () => {
         <h1 className="text-2xl font-bold mb-6 text-legal-primary">Legal Topics</h1>
         
         <Tabs defaultValue="family" className="w-full">
-          <TabsList className="grid grid-cols-2 md:grid-cols-6 mb-8 bg-legal-background">
+          <TabsList className="grid grid-cols-2 md:grid-cols-7 mb-8 bg-legal-background">
             <TabsTrigger value="family" className="data-[state=active]:bg-legal-primary data-[state=active]:text-white">
               Family
             </TabsTrigger>
@@ -33,6 +32,9 @@ const TopicsPage: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger value="accidents" className="data-[state=active]:bg-legal-primary data-[state=active]:text-white">
               Accidents
+            </TabsTrigger>
+            <TabsTrigger value="immigration" className="data-[state=active]:bg-legal-primary data-[state=active]:text-white">
+              Immigration
             </TabsTrigger>
           </TabsList>
           
@@ -218,7 +220,6 @@ const TopicsPage: React.FC = () => {
           
           <TabsContent value="consumer" className="animate-fade-in">
             <div className="grid gap-6 md:grid-cols-2">
-              {/* Consumer rights content would go here */}
               <Card>
                 <CardHeader className="pb-2">
                   <div className="flex items-center gap-2">
@@ -307,6 +308,66 @@ const TopicsPage: React.FC = () => {
                 <CardContent>
                   <p className="text-muted-foreground">
                     Property owner responsibilities, proving negligence, and what to do if injured on someone else's property.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="immigration" className="animate-fade-in">
+            <div className="grid gap-6 md:grid-cols-2">
+              <Card>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <GraduationCap className="h-5 w-5 text-legal-primary" />
+                    <CardTitle className="text-lg">Student Visas</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Information about F-1, J-1, and M-1 student visas, application processes, maintaining status, and post-graduation options like OPT.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <Globe className="h-5 w-5 text-legal-primary" />
+                    <CardTitle className="text-lg">Work Visas</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Understanding H-1B, L-1, O-1, and other work visa categories, employer sponsorship requirements, and paths to permanent residency.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-5 w-5 text-legal-primary" />
+                    <CardTitle className="text-lg">Family Immigration</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Family-based immigration pathways, spouse and fiancé(e) visas, parent and child petitions, and documentation requirements.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-legal-primary" />
+                    <CardTitle className="text-lg">Asylum & Refugee Status</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Understanding asylum eligibility, the application process, rights of asylees and refugees, and resources for assistance.
                   </p>
                 </CardContent>
               </Card>

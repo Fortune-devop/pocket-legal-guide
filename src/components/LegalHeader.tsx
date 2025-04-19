@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { Gavel, Menu } from 'lucide-react';
+import { Gavel, Menu, LogIn, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { NavLink } from 'react-router-dom';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 const LegalHeader: React.FC = () => {
   return (
@@ -29,6 +30,24 @@ const LegalHeader: React.FC = () => {
           <NavLink to="/documents" className="text-sm font-medium hover:text-legal-primary transition-colors">
             Documents
           </NavLink>
+          
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <NavLink to="/sign-in">
+              <Button variant="ghost" size="sm">
+                <LogIn className="mr-2 h-4 w-4" />
+                Sign In
+              </Button>
+            </NavLink>
+            <NavLink to="/sign-up">
+              <Button variant="default" size="sm">
+                <UserPlus className="mr-2 h-4 w-4" />
+                Sign Up
+              </Button>
+            </NavLink>
+          </SignedOut>
         </div>
         
         <div className="md:hidden">
@@ -72,6 +91,34 @@ const LegalHeader: React.FC = () => {
                 >
                   Documents
                 </NavLink>
+                <SignedIn>
+                  <NavLink 
+                    to="/profile" 
+                    className={({ isActive }) => 
+                      `p-2 rounded-md ${isActive ? 'bg-legal-primary text-white' : 'hover:bg-legal-background'}`
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                </SignedIn>
+                <SignedOut>
+                  <NavLink 
+                    to="/sign-in" 
+                    className={({ isActive }) => 
+                      `p-2 rounded-md ${isActive ? 'bg-legal-primary text-white' : 'hover:bg-legal-background'}`
+                    }
+                  >
+                    Sign In
+                  </NavLink>
+                  <NavLink 
+                    to="/sign-up" 
+                    className={({ isActive }) => 
+                      `p-2 rounded-md ${isActive ? 'bg-legal-primary text-white' : 'hover:bg-legal-background'}`
+                    }
+                  >
+                    Sign Up
+                  </NavLink>
+                </SignedOut>
               </nav>
             </SheetContent>
           </Sheet>

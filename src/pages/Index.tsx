@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Shield, MessageSquare, FileText, BookOpen, Award, Scale } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import CategoryCard from '@/components/CategoryCard';
 import LegalHeader from '@/components/LegalHeader';
 import LegalFooter from '@/components/LegalFooter';
 import Faq from '@/components/Faq';
+import { DisclaimerDialog } from '@/components/DisclaimerDialog';
 
 const faqs = [
   {
@@ -30,6 +30,7 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <LegalHeader />
+      <DisclaimerDialog />
       
       <main className="flex-grow container mx-auto px-4 py-6">
         {/* Hero Section */}

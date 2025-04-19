@@ -8,9 +8,6 @@ import Index from "./pages/Index";
 import ChatPage from "./pages/ChatPage";
 import TopicsPage from "./pages/TopicsPage";
 import DocumentsPage from "./pages/DocumentsPage";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
-import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
 // Create a client
@@ -27,9 +24,6 @@ const App = () => {
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/topics" element={<TopicsPage />} />
             <Route path="/documents" element={<DocumentsPage />} />
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster />

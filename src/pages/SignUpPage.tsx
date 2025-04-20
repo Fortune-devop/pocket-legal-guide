@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Github, google } from "lucide-react";
+import { Github, Search } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email"),
@@ -132,7 +132,7 @@ const SignUpPage = () => {
                   GitHub
                 </Button>
                 <Button onClick={handleGoogleSignUp} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold">
-                  <google size={20} />
+                  <Search size={20} />
                   Google
                 </Button>
               </div>

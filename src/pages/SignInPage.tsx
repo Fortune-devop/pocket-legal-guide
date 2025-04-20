@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-import { Github, google } from "lucide-react";
+import { Github, Search } from "lucide-react";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ const SignInPage = () => {
                   GitHub
                 </Button>
                 <Button onClick={handleGoogleSignIn} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold">
-                  <google size={20} />
+                  <Search size={20} />
                   Google
                 </Button>
               </div>

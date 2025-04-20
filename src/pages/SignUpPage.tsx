@@ -112,11 +112,23 @@ const SignUpPage = () => {
     navigate("/sign-in");
   };
 
+  // Photo ID can be changed for variety!
+  const backgroundUrl =
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80";
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+      className="min-h-screen flex flex-col relative"
+      style={{
+        backgroundImage: `url('${backgroundUrl}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true"/>
       <LegalHeader />
-      <div className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md shadow-lg rounded-lg">
+      <div className="flex-1 flex items-center justify-center p-4 z-10 relative">
+        <Card className="w-full max-w-md shadow-lg rounded-lg bg-white/90 backdrop-blur-sm animate-fade-in">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
             <CardDescription className="text-center text-muted-foreground">

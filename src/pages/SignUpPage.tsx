@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Github, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { toast } from "sonner";
 import LegalHeader from "../components/LegalHeader";
 
@@ -14,13 +14,15 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const { signUp } = useSignUp();
   const { setActive, openSignIn } = useClerk();
-  const [form, setForm] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [form, setForm] = useState({ email: "", password: "", firstName: "", lastName: "" });
+  const [errors, setErrors] = useState<{ email?: string; password?: string; firstName?: string; lastName?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Validates email and password fields
+  // Validates required fields
   const validate = () => {
-    const errors: { email?: string; password?: string } = {};
+    const errors: { email?: string; password?: string; firstName?: string; lastName?: string } = {};
+    if (!form.firstName) errors.firstName = "First name is required";
+    if (!form.lastName) errors.lastName = "Last name is required";
     if (!form.email) errors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(form.email)) errors.email = "Invalid email address";
     if (!form.password) errors.password = "Password is required";
@@ -39,6 +41,8 @@ const SignUpPage = () => {
       await signUp?.create({
         emailAddress: form.email,
         password: form.password,
+        firstName: form.firstName,
+        lastName: form.lastName,
       });
       await signUp?.prepareEmailAddressVerification({ strategy: "email_code" });
       toast.success("Check your email for verification!");
@@ -57,7 +61,6 @@ const SignUpPage = () => {
   const handleGoogleSignUp = async () => {
     try {
       setIsLoading(true);
-      // Fix: Changed to use Clerk's openSignIn method with correct parameters
       await openSignIn({
         appearance: {
           elements: {
@@ -67,7 +70,7 @@ const SignUpPage = () => {
           }
         }
       });
-      // Clerk will handle redirection and session automatically on success.
+      // Clerk handles redirection/session on success.
     } catch (err: any) {
       toast.error("Google sign up failed.");
     } finally {
@@ -90,10 +93,6 @@ const SignUpPage = () => {
                 <Search size={20} />
                 Continue with Google
               </Button>
-              <Button onClick={() => toast.info("GitHub auth coming soon")} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold" disabled>
-                <Github size={20} />
-                GitHub
-              </Button>
             </div>
             <div className="flex items-center mb-4">
               <span className="flex-grow h-px bg-gray-200"></span>
@@ -101,6 +100,38 @@ const SignUpPage = () => {
               <span className="flex-grow h-px bg-gray-200"></span>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label htmlFor="firstName" className="font-semibold text-sm">
+                  First Name
+                </Label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  autoComplete="given-name"
+                  value={form.firstName}
+                  onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+                  placeholder="Enter your first name"
+                  required
+                  aria-describedby="signup-firstname-error"
+                />
+                {errors.firstName && <p className="text-red-500 text-xs mt-1" id="signup-firstname-error">{errors.firstName}</p>}
+              </div>
+              <div>
+                <Label htmlFor="lastName" className="font-semibold text-sm">
+                  Last Name
+                </Label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  autoComplete="family-name"
+                  value={form.lastName}
+                  onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
+                  placeholder="Enter your last name"
+                  required
+                  aria-describedby="signup-lastname-error"
+                />
+                {errors.lastName && <p className="text-red-500 text-xs mt-1" id="signup-lastname-error">{errors.lastName}</p>}
+              </div>
               <div>
                 <Label htmlFor="email" className="font-semibold text-sm">
                   Email address

@@ -3,12 +3,27 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import LegalHeader from "@/components/LegalHeader";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { toast } from "sonner";
 
 const SignInPage = () => {
@@ -31,7 +46,6 @@ const SignInPage = () => {
 
   const handleResetPassword = (e: React.FormEvent) => {
     e.preventDefault();
-    // Since we're using mock auth, just show a success message
     toast.success("Password reset instructions sent to your email");
   };
 
@@ -47,33 +61,47 @@ const SignInPage = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true"/>
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
       <LegalHeader />
       <div className="flex-1 flex items-center justify-center p-4 z-10 relative">
-        <Card className="mx-auto w-full max-w-md shadow-lg rounded-lg bg-white/90 backdrop-blur-sm animate-fade-in">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">Sign In</CardTitle>
-            <CardDescription className="text-center">Enter your credentials to access your account</CardDescription>
+        <Card className="mx-auto w-full max-w-md shadow-2xl rounded-2xl bg-white/90 backdrop-blur-md animate-fade-in border-0">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-3xl font-extrabold text-center text-[#403E43]">
+              Welcome back
+            </CardTitle>
+            <CardDescription className="text-center text-base text-[#7E69AB] font-medium">
+              Sign in to your account
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input 
-                  id="email" 
-                  type="email" 
+                <Label htmlFor="email" className="font-semibold">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com" 
-                  required 
+                  placeholder="name@example.com"
+                  required
+                  className="bg-[#F6F6F7] border border-[#E5DEFF] focus:border-[#9b87f5]"
                 />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="font-semibold">
+                    Password
+                  </Label>
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button variant="link" className="text-sm text-[#9b87f5] hover:text-[#7E69AB] p-0">
+                      <Button
+                        variant="link"
+                        className="text-sm text-[#9b87f5] hover:text-[#7E69AB] p-0 h-auto"
+                        tabIndex={-1}
+                        type="button"
+                      >
                         Forgot password?
                       </Button>
                     </DialogTrigger>
@@ -97,46 +125,58 @@ const SignInPage = () => {
                           />
                         </div>
                         <DialogFooter className="mt-4">
-                          <Button type="submit">Send Instructions</Button>
+                          <Button type="submit" className="w-full">
+                            Send Instructions
+                          </Button>
                         </DialogFooter>
                       </form>
                     </DialogContent>
                   </Dialog>
                 </div>
-                <Input 
-                  id="password" 
+                <Input
+                  id="password"
                   type="password"
-                  value={password} 
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required 
+                  required
+                  className="bg-[#F6F6F7] border border-[#E5DEFF] focus:border-[#9b87f5]"
                 />
               </div>
-              <Button type="submit" className="w-full">Sign In</Button>
+              <Button type="submit" className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white font-semibold shadow-md">
+                Sign In
+              </Button>
             </form>
-            
-            <div className="relative my-4">
+
+            <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t"></span>
+                <span className="w-full border-t border-[#E5DEFF]"></span>
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+                <span className="bg-white px-3 text-[#9F9EA1]">Or continue with</span>
               </div>
             </div>
-            
-            <Button 
-              variant="outline" 
-              type="button" 
+
+            <Button
+              variant="outline"
+              type="button"
               onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-2"
+              className="w-full flex items-center justify-center gap-2 bg-[#F6F6F7] border-[#E5DEFF] hover:bg-[#f1f0fb]"
             >
               <FcGoogle size={20} />
-              <span>Google</span>
+              <span className="font-semibold text-[#403E43]">Google</span>
             </Button>
           </CardContent>
-          <CardFooter className="flex justify-center">
-            <Button variant="link" onClick={() => navigate("/sign-up")}>
-              Don't have an account? Sign Up
-            </Button>
+          <CardFooter className="flex flex-col gap-2 pt-2">
+            <div className="w-full flex items-center gap-1 justify-center">
+              <span className="text-[#7E69AB] text-sm">Don't have an account?</span>
+              <Button
+                variant="link"
+                className="p-0 h-auto font-semibold text-[#9b87f5] hover:text-[#7E69AB]"
+                onClick={() => navigate("/sign-up")}
+              >
+                Sign Up
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       </div>

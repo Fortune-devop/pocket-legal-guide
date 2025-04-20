@@ -2,7 +2,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import LegalHeader from "@/components/LegalHeader";
 import {
   Card,
   CardContent,
@@ -14,17 +13,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FcGoogle } from "react-icons/fc";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { toast } from "sonner";
+
+import { Github, google } from "lucide-react";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -44,141 +35,141 @@ const SignInPage = () => {
     navigate("/");
   };
 
+  const handleGithubSignIn = () => {
+    signIn("Github");
+    navigate("/");
+  };
+
   const handleResetPassword = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Password reset instructions sent to your email");
   };
 
-  const backgroundUrl =
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80";
+  // Background image and fade-in/slide animation via Tailwind.
+  const backgroundUrl = "/lovable-uploads/6bf1146b-6ea4-4137-a080-5761e4ebda8b.png";
 
   return (
     <div
-      className="min-h-screen flex flex-col relative"
+      className="min-h-screen w-full flex items-stretch justify-center bg-gradient-to-br from-[#f8fafc] via-[#e9e9f8] to-[#f7f2fd] relative"
       style={{
         backgroundImage: `url('${backgroundUrl}')`,
+        backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "left bottom",
       }}
     >
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-      <LegalHeader />
-      <div className="flex-1 flex items-center justify-center p-4 z-10 relative">
-        <Card className="mx-auto w-full max-w-md shadow-2xl rounded-2xl bg-white/90 backdrop-blur-md animate-fade-in border-0">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-3xl font-extrabold text-center text-[#403E43]">
-              Welcome back
-            </CardTitle>
-            <CardDescription className="text-center text-base text-[#7E69AB] font-medium">
-              Sign in to your account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email" className="font-semibold">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  required
-                  className="bg-[#F6F6F7] border border-[#E5DEFF] focus:border-[#9b87f5]"
-                />
+      <div className="flex flex-1 z-10 animate-fade-in">
+        {/* Left Side: Promotional (hidden on small screens) */}
+        <div className="hidden md:flex flex-col justify-center items-center w-2/5 pr-8">
+          <div className="max-w-xs flex flex-col space-y-6">
+            <img src="/logo.svg" aria-label="Logo" className="w-24 mx-auto mb-8" style={{ filter: "grayscale(100%) brightness(0.9)" }} />
+            <div>
+              <h2 className="font-semibold text-lg text-gray-700 mb-2">🚀 Save on development time</h2>
+              <p className="text-sm text-gray-500">Add authentication and user management to your app with just a few lines of code.</p>
+            </div>
+            <div>
+              <h2 className="font-semibold text-lg text-gray-700 mb-2">🤝 Increase engagement</h2>
+              <p className="text-sm text-gray-500">Add intuitive UIs designed to decrease friction for your users.</p>
+            </div>
+            <div>
+              <h2 className="font-semibold text-lg text-gray-700 mb-2">🔒 Protect your users</h2>
+              <p className="text-sm text-gray-500">Enable features like two-step verification and enjoy automatic security updates.</p>
+            </div>
+            <div>
+              <h2 className="font-semibold text-lg text-gray-700 mb-2">🎨 Match your brand</h2>
+              <p className="text-sm text-gray-500">Theme our pre-built components or integrate your own styles easily.</p>
+            </div>
+            <p className="text-xs text-gray-400 pt-4">&copy; {new Date().getFullYear()} Pocket Legal Guide</p>
+          </div>
+        </div>
+
+        {/* Right Side: Card */}
+        <div className="flex flex-1 min-h-screen items-center justify-center">
+          <Card className="w-full max-w-md rounded-2xl shadow-xl border border-[#eee] bg-white/95 animate-fade-in">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-2xl font-bold text-center text-gray-900 tracking-tight font-sans">
+                Welcome back
+              </CardTitle>
+              <CardDescription className="text-center text-gray-500 font-medium">
+                Sign in to your account
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2 mb-4">
+                <Button onClick={handleGithubSignIn} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold">
+                  <Github size={20} />
+                  GitHub
+                </Button>
+                <Button onClick={handleGoogleSignIn} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold">
+                  <google size={20} />
+                  Google
+                </Button>
               </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="font-semibold">
-                    Password
+              <div className="flex items-center mb-4">
+                <span className="flex-grow h-px bg-gray-200"></span>
+                <span className="text-xs text-gray-400 px-3">or</span>
+                <span className="flex-grow h-px bg-gray-200"></span>
+              </div>
+              <form onSubmit={handleSignIn} className="space-y-4">
+                <div>
+                  <Label htmlFor="email" className="font-semibold text-sm">
+                    Email address
                   </Label>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="link"
-                        className="text-sm text-[#9b87f5] hover:text-[#7E69AB] p-0 h-auto"
-                        tabIndex={-1}
-                        type="button"
-                      >
-                        Forgot password?
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <form onSubmit={handleResetPassword}>
-                        <DialogHeader>
-                          <DialogTitle>Reset Password</DialogTitle>
-                          <DialogDescription>
-                            Enter your email address and we'll send you instructions to reset your password.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="mt-4 space-y-2">
-                          <Label htmlFor="reset-email">Email</Label>
-                          <Input
-                            id="reset-email"
-                            type="email"
-                            value={resetEmail}
-                            onChange={(e) => setResetEmail(e.target.value)}
-                            placeholder="name@example.com"
-                            required
-                          />
-                        </div>
-                        <DialogFooter className="mt-4">
-                          <Button type="submit" className="w-full">
-                            Send Instructions
-                          </Button>
-                        </DialogFooter>
-                      </form>
-                    </DialogContent>
-                  </Dialog>
+                  <Input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    required
+                  />
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="bg-[#F6F6F7] border border-[#E5DEFF] focus:border-[#9b87f5]"
-                />
+                <div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password" className="font-semibold text-sm">
+                      Password
+                    </Label>
+                    <button
+                      type="button"
+                      className="text-xs font-medium text-[#9b87f5] hover:text-[#7E69AB]"
+                      onClick={() => toast.info("Use the reset password dialog!")}
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    required
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full mt-2 bg-[#9b87f5] hover:bg-[#7E69AB] text-white font-semibold py-2 rounded-md transition"
+                >
+                  Continue
+                </Button>
+              </form>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-0 pt-0 px-8 bg-[#faf7fd] rounded-b-2xl">
+              <div className="w-full flex items-center justify-center text-[#7E69AB] text-sm py-3">
+                <span>Don&apos;t have an account?</span>
+                <Button
+                  variant="link"
+                  className="px-1 h-auto font-semibold text-[#9b87f5] hover:text-[#7E69AB]"
+                  onClick={() => navigate("/sign-up")}
+                >
+                  Sign up
+                </Button>
               </div>
-              <Button type="submit" className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white font-semibold shadow-md">
-                Sign In
-              </Button>
-            </form>
-
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-[#E5DEFF]"></span>
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-3 text-[#9F9EA1]">Or continue with</span>
-              </div>
-            </div>
-
-            <Button
-              variant="outline"
-              type="button"
-              onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-2 bg-[#F6F6F7] border-[#E5DEFF] hover:bg-[#f1f0fb]"
-            >
-              <FcGoogle size={20} />
-              <span className="font-semibold text-[#403E43]">Google</span>
-            </Button>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-2 pt-2">
-            <div className="w-full flex items-center gap-1 justify-center">
-              <span className="text-[#7E69AB] text-sm">Don't have an account?</span>
-              <Button
-                variant="link"
-                className="p-0 h-auto font-semibold text-[#9b87f5] hover:text-[#7E69AB]"
-                onClick={() => navigate("/sign-up")}
-              >
-                Sign Up
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
+            </CardFooter>
+          </Card>
+        </div>
       </div>
     </div>
   );

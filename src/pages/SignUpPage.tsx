@@ -40,7 +40,9 @@ const SignUpPage = () => {
   // Use signUpComplete event from Clerk
   const handleComplete = () => {
     if (signUp?.status === "complete") {
-      if (signUp.verifications?.emailAddress?.status === "pending") {
+      // Check if email verification is required using strict equality with the correct enum value
+      // The error was here - we need to check against the correct status value
+      if (signUp.verifications?.emailAddress?.status === "unverified") {
         setEmail(signUp.emailAddress || "");
         setModalOpen(true);
       } else if (signUp.createdSessionId) {

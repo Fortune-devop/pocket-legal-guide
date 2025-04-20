@@ -56,7 +56,16 @@ const SignUpPage = () => {
   const handleGoogleSignUp = async () => {
     try {
       setIsLoading(true);
-      await openSignIn({ strategy: "oauth_google" });
+      // Fix: Changed to use Clerk's openSignIn method with correct parameters
+      await openSignIn({
+        appearance: {
+          elements: {
+            socialButtonsIconButton: {
+              width: '100%'
+            }
+          }
+        }
+      });
       // Clerk will handle redirection and session automatically on success.
     } catch (err: any) {
       toast.error("Google sign up failed.");

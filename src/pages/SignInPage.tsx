@@ -56,7 +56,16 @@ const SignInPage = () => {
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
-      await openSignIn({ strategy: "oauth_google" });
+      // Fix: Changed strategy parameter format to use the OAuth provider directly
+      await openSignIn({
+        appearance: {
+          elements: {
+            socialButtonsIconButton: {
+              width: '100%'
+            }
+          }
+        }
+      });
       // Clerk will handle redirection & session
     } catch {
       toast.error("Google sign-in failed.");

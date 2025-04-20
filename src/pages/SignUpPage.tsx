@@ -14,19 +14,41 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const { signUp } = useSignUp();
   const { setActive, openSignIn } = useClerk();
-  const [form, setForm] = useState({ email: "", password: "", firstName: "", lastName: "" });
-  const [errors, setErrors] = useState<{ email?: string; password?: string; firstName?: string; lastName?: string }>({});
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    verifyPassword: "",
+    firstName: "",
+    lastName: "",
+  });
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    verifyPassword?: string;
+    firstName?: string;
+    lastName?: string;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Validates required fields
+  // Validates required fields, including matching passwords
   const validate = () => {
-    const errors: { email?: string; password?: string; firstName?: string; lastName?: string } = {};
+    const errors: {
+      email?: string;
+      password?: string;
+      verifyPassword?: string;
+      firstName?: string;
+      lastName?: string;
+    } = {};
     if (!form.firstName) errors.firstName = "First name is required";
     if (!form.lastName) errors.lastName = "Last name is required";
     if (!form.email) errors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(form.email)) errors.email = "Invalid email address";
     if (!form.password) errors.password = "Password is required";
     else if (form.password.length < 8) errors.password = "Password must be at least 8 characters";
+    if (!form.verifyPassword) errors.verifyPassword = "Please verify your password";
+    else if (form.password && form.password !== form.verifyPassword) {
+      errors.verifyPassword = "Passwords do not match";
+    }
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -163,6 +185,26 @@ const SignUpPage = () => {
                   aria-describedby="signup-password-error"
                 />
                 {errors.password && <p className="text-red-500 text-xs mt-1" id="signup-password-error">{errors.password}</p>}
+              </div>
+              <div>
+                <Label htmlFor="verifyPassword" className="font-semibold text-sm">
+                  Verify Password
+                </Label>
+                <Input
+                  id="verifyPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  value={form.verifyPassword}
+                  onChange={e => setForm(f => ({ ...f, verifyPassword: e.target.value }))}
+                  placeholder="Retype your password"
+                  required
+                  aria-describedby="signup-verifypassword-error"
+                />
+                {errors.verifyPassword && (
+                  <p className="text-red-500 text-xs mt-1" id="signup-verifypassword-error">
+                    {errors.verifyPassword}
+                  </p>
+                )}
               </div>
               <Button
                 type="submit"

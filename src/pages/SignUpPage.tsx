@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -115,109 +116,119 @@ const SignUpPage = () => {
     <div className="min-h-screen flex flex-col">
       <LegalHeader />
       <div className="flex-1 flex items-center justify-center p-4">
-        <div className="w-full max-w-md space-y-6">
-          <div className="text-center space-y-2">
-            <h1 className="text-2xl font-bold">Create an account</h1>
-            <p className="text-muted-foreground">
+        <Card className="w-full max-w-md shadow-lg rounded-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
+            <CardDescription className="text-center text-muted-foreground">
               Enter your information to get started
-            </p>
-          </div>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          First Name <span className="text-destructive">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="John" {...field} required />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Last Name <span className="text-destructive">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="Doe" {...field} required />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="firstName"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>First Name</FormLabel>
+                      <FormLabel>
+                        Email <span className="text-destructive">*</span>
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="John" {...field} />
+                        <Input type="email" placeholder="john@example.com" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="lastName"
+                  name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Last Name</FormLabel>
+                      <FormLabel>
+                        Password <span className="text-destructive">*</span>
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="Doe" {...field} />
+                        <div className="relative">
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
+                            required
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-2 top-1/2 -translate-y-1/2"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-4 w-4" />
+                            ) : (
+                              <Eye className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="john@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          type={showPassword ? "text" : "password"}
-                          placeholder="••••••••"
-                          {...field}
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="absolute right-2 top-1/2 -translate-y-1/2"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Sign up"}
-              </Button>
-
-              <p className="text-center text-sm text-muted-foreground">
-                Already have an account?{" "}
-                <Button
-                  variant="link"
-                  className="p-0 h-auto font-normal"
-                  onClick={() => navigate("/sign-in")}
-                >
-                  Sign in
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Creating account..." : "Sign up"}
                 </Button>
-              </p>
-            </form>
-          </Form>
-        </div>
+
+                <p className="text-center text-sm text-muted-foreground">
+                  Already have an account?{" "}
+                  <Button
+                    variant="link"
+                    className="p-0 h-auto font-normal"
+                    onClick={() => navigate("/sign-in")}
+                  >
+                    Sign in
+                  </Button>
+                </p>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
         <EmailVerificationModal open={modalOpen} onClose={handleModalClose} email={email} />
       </div>
       <DisclaimerDialog />

@@ -37,16 +37,17 @@ const SignUpPage = () => {
   const { signUp } = useSignUp();
   const { setActive } = useClerk();
 
-  // Handler for after sign up
-  const handleSignUpComplete = async (signUpData: any) => {
-    // If Clerk requires email verification
-    if (signUpData.verifications?.emailAddress?.status === "pending") {
-      setEmail(signUpData.emailAddress);
-      setModalOpen(true);
-      // Do not sign user in automatically; require verification first
-    } else if (signUpData.status === "complete" && signUpData.createdSessionId) {
-      await setActive({ session: signUpData.createdSessionId });
-      navigate("/");
+  // Use signUpComplete event from Clerk
+  const handleComplete = () => {
+    if (signUp?.status === "complete") {
+      if (signUp.verifications?.emailAddress?.status === "pending") {
+        setEmail(signUp.emailAddress || "");
+        setModalOpen(true);
+      } else if (signUp.createdSessionId) {
+        setActive({ session: signUp.createdSessionId })
+          .then(() => navigate("/"))
+          .catch(console.error);
+      }
     }
   };
 
@@ -64,7 +65,6 @@ const SignUpPage = () => {
             path="/sign-up"
             routing="path"
             signInUrl="/sign-in"
-            afterSignUp={handleSignUpComplete}
             appearance={{
               elements: { card: "shadow-lg rounded-lg" },
             }}

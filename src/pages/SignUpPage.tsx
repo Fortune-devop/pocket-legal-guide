@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignUp, useSignUp, useClerk } from "@clerk/clerk-react";
 import LegalHeader from "@/components/LegalHeader";
+import { DisclaimerDialog } from "@/components/DisclaimerDialog";
 import {
   Dialog,
   DialogContent,
@@ -37,21 +38,23 @@ const SignUpPage = () => {
   const { signUp } = useSignUp();
   const { setActive } = useClerk();
 
-  // Use signUpComplete event from Clerk
-  const handleComplete = () => {
+  // Function to handle sign up completion
+  const handleSignUpComplete = async () => {
     if (signUp?.status === "complete") {
-      // Check if email verification is required using strict equality with the correct enum value
-      // The error was here - we need to check against the correct status value
       if (signUp.verifications?.emailAddress?.status === "unverified") {
         setEmail(signUp.emailAddress || "");
         setModalOpen(true);
       } else if (signUp.createdSessionId) {
-        setActive({ session: signUp.createdSessionId })
-          .then(() => navigate("/"))
-          .catch(console.error);
+        await setActive({ session: signUp.createdSessionId });
+        navigate("/");
       }
     }
   };
+
+  // Listen for signup status changes
+  if (signUp && signUp.status === "complete") {
+    handleSignUpComplete();
+  }
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -74,6 +77,7 @@ const SignUpPage = () => {
         </div>
         <EmailVerificationModal open={modalOpen} onClose={handleModalClose} email={email} />
       </div>
+      <DisclaimerDialog />
     </div>
   );
 };

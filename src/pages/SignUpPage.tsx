@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignUp, useClerk } from "@clerk/clerk-react";
@@ -6,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Google } from "lucide-react";
+import { Google as Google } from "lucide-react";
 import { toast } from "sonner";
 import LegalHeader from "../components/LegalHeader";
 
@@ -30,7 +29,6 @@ const SignUpPage = () => {
   }>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Validates required fields, including matching passwords
   const validate = () => {
     const errors: {
       email?: string;
@@ -53,7 +51,6 @@ const SignUpPage = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // Custom sign up handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
@@ -68,7 +65,6 @@ const SignUpPage = () => {
       });
       await signUp?.prepareEmailAddressVerification({ strategy: "email_code" });
       toast.success("Check your email for verification!");
-      // You might want to redirect or show an email verify modal here.
     } catch (err: any) {
       toast.error(
         err?.errors?.[0]?.message ||
@@ -92,7 +88,6 @@ const SignUpPage = () => {
           }
         }
       });
-      // Clerk handles redirection/session on success.
     } catch (err: any) {
       toast.error("Google sign up failed.");
     } finally {

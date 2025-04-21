@@ -122,37 +122,39 @@ const SignUpPage = () => {
               <span className="flex-grow h-px bg-gray-200"></span>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="firstName" className="font-semibold text-sm">
-                  First Name
-                </Label>
-                <Input
-                  id="firstName"
-                  type="text"
-                  autoComplete="given-name"
-                  value={form.firstName}
-                  onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-                  placeholder="Enter your first name"
-                  required
-                  aria-describedby="signup-firstname-error"
-                />
-                {errors.firstName && <p className="text-red-500 text-xs mt-1" id="signup-firstname-error">{errors.firstName}</p>}
-              </div>
-              <div>
-                <Label htmlFor="lastName" className="font-semibold text-sm">
-                  Last Name
-                </Label>
-                <Input
-                  id="lastName"
-                  type="text"
-                  autoComplete="family-name"
-                  value={form.lastName}
-                  onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
-                  placeholder="Enter your last name"
-                  required
-                  aria-describedby="signup-lastname-error"
-                />
-                {errors.lastName && <p className="text-red-500 text-xs mt-1" id="signup-lastname-error">{errors.lastName}</p>}
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <Label htmlFor="firstName" className="font-semibold text-sm">
+                    First Name
+                  </Label>
+                  <Input
+                    id="firstName"
+                    type="text"
+                    autoComplete="given-name"
+                    value={form.firstName}
+                    onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+                    placeholder="Enter your first name"
+                    required
+                    aria-describedby="signup-firstname-error"
+                  />
+                  {errors.firstName && <p className="text-red-500 text-xs mt-1" id="signup-firstname-error">{errors.firstName}</p>}
+                </div>
+                <div className="flex-1">
+                  <Label htmlFor="lastName" className="font-semibold text-sm">
+                    Last Name
+                  </Label>
+                  <Input
+                    id="lastName"
+                    type="text"
+                    autoComplete="family-name"
+                    value={form.lastName}
+                    onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
+                    placeholder="Enter your last name"
+                    required
+                    aria-describedby="signup-lastname-error"
+                  />
+                  {errors.lastName && <p className="text-red-500 text-xs mt-1" id="signup-lastname-error">{errors.lastName}</p>}
+                </div>
               </div>
               <div>
                 <Label htmlFor="email" className="font-semibold text-sm">

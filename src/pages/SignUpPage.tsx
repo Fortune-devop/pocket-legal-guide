@@ -110,17 +110,6 @@ const SignUpPage = () => {
             <CardDescription className="text-center">Please fill in your details to get started.</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex gap-2 mb-4">
-              <Button onClick={handleGoogleSignUp} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold" disabled={isLoading}>
-                <Search size={20} />
-                Continue with Google
-              </Button>
-            </div>
-            <div className="flex items-center mb-4">
-              <span className="flex-grow h-px bg-gray-200"></span>
-              <span className="text-xs text-gray-400 px-3">or</span>
-              <span className="flex-grow h-px bg-gray-200"></span>
-            </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex gap-4">
                 <div className="flex-1">
@@ -216,6 +205,12 @@ const SignUpPage = () => {
                 {isLoading ? "Creating account…" : "Sign Up"}
               </Button>
             </form>
+            <div className="flex gap-2 mt-4">
+              <Button onClick={handleGoogleSignUp} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold" disabled={isLoading}>
+                <Search size={20} />
+                Continue with Google
+              </Button>
+            </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-0 pt-0 px-8 bg-[#faf7fd] rounded-b-2xl">
             <div className="w-full flex items-center justify-center text-[#7E69AB] text-sm py-3">
@@ -237,3 +232,4 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+

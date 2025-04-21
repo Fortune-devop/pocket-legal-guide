@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Search } from "lucide-react";
+import { google } from "lucide-react";
 import { toast } from "sonner";
 import LegalHeader from "../components/LegalHeader";
 
@@ -106,8 +106,20 @@ const SignUpPage = () => {
       <div className="min-h-screen w-full bg-gradient-to-br from-[#f8fafc] via-[#e9e9f8] to-[#f7f2fd] flex items-center justify-center">
         <Card className="w-full max-w-md rounded-2xl shadow-lg p-0 border">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">Create your account</CardTitle>
-            <CardDescription className="text-center">Please fill in your details to get started.</CardDescription>
+            <div className="flex items-center justify-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="#1E40AF"
+                className="w-10 h-10"
+              >
+                <path d="M12 0L9.7 7.3H2L8 12.6L5.7 20L12 14.7L18.3 20L16 12.6L22 7.3H14.3L12 0Z" />
+              </svg>
+              <span className="text-3xl font-extrabold text-legal-primary tracking-tight select-none">
+                PocketLegal
+              </span>
+            </div>
+            <CardDescription className="text-center mt-2">Please fill in your details to get started.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -197,6 +209,12 @@ const SignUpPage = () => {
                   </p>
                 )}
               </div>
+              <div className="flex gap-2 mt-4">
+                <Button onClick={handleGoogleSignUp} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold" disabled={isLoading}>
+                  <google size={20} />
+                  Continue with Google
+                </Button>
+              </div>
               <Button
                 type="submit"
                 className="w-full mt-2 bg-[#9b87f5] hover:bg-[#7E69AB] text-white font-semibold py-2 rounded-md transition"
@@ -205,12 +223,6 @@ const SignUpPage = () => {
                 {isLoading ? "Creating account…" : "Sign Up"}
               </Button>
             </form>
-            <div className="flex gap-2 mt-4">
-              <Button onClick={handleGoogleSignUp} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold" disabled={isLoading}>
-                <Search size={20} />
-                Continue with Google
-              </Button>
-            </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-0 pt-0 px-8 bg-[#faf7fd] rounded-b-2xl">
             <div className="w-full flex items-center justify-center text-[#7E69AB] text-sm py-3">

@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Google as Google } from "lucide-react";
+import { google as Google } from "lucide-react"; // fixed import: lowercase 'google' renamed as Google
 import { toast } from "sonner";
 import LegalHeader from "../components/LegalHeader";
 

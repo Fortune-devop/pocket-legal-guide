@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { google } from "lucide-react";
+import { Google } from "lucide-react";
 import { toast } from "sonner";
 import LegalHeader from "../components/LegalHeader";
 
@@ -211,7 +211,7 @@ const SignUpPage = () => {
               </div>
               <div className="flex gap-2 mt-4">
                 <Button onClick={handleGoogleSignUp} variant="outline" className="flex-1 gap-2 py-2 rounded-md border-[#eee] font-semibold" disabled={isLoading}>
-                  <google size={20} />
+                  <Google size={20} />
                   Continue with Google
                 </Button>
               </div>
@@ -244,4 +244,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
